@@ -1,11 +1,15 @@
-const http = require('http')
-const fs = require('fs')
-const port = 5000
+const express = require('express')
 
-const server = http.createServer((req, res) => {
-    const read = fs.createReadStream('./index.html')
-    read.pipe(res)
+const app = express()
+const port = 6000
+
+app.get('/', (req, res) => {
+    res.sendFile('./index.html',{
+        root: __dirname
+    })
 })
 
-server.listen(port)
+app.use(express.static('./'));
+
+app.listen(port)
 console.log(`Sever listen on port ${port}`)
